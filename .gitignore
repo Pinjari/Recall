@@ -1,0 +1,13 @@
+.gradle/
+.kotlin/
+.cache/
+**/build/
+local.properties
+.idea/
+*.iml
+.DS_Store
+out/
+dist/
+*.db
+*.db-shm
+*.db-wal

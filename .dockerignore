@@ -1,0 +1,10 @@
+.git
+.gradle
+.kotlin
+**/build
+local.properties
+.idea
+*.iml
+.DS_Store
+build
+dist

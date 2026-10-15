@@ -1,0 +1,7 @@
+<resources>
+    <style name="Theme.RecallFlow" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">#F5F5EF</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+</resources>

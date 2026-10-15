@@ -1,0 +1,30 @@
+CREATE TABLE notes (
+    id TEXT NOT NULL PRIMARY KEY,
+    title TEXT NOT NULL,
+    body TEXT NOT NULL,
+    created_at INTEGER NOT NULL,
+    updated_at INTEGER NOT NULL
+);
+
+selectById:
+SELECT *
+FROM notes
+WHERE id = ?;
+
+selectAll:
+SELECT *
+FROM notes
+ORDER BY updated_at DESC, id ASC;
+
+insertNote:
+INSERT INTO notes(id, title, body, created_at, updated_at)
+VALUES (?, ?, ?, ?, ?);
+
+updateNote:
+UPDATE notes
+SET title = ?, body = ?, updated_at = ?
+WHERE id = ?;
+
+deleteNote:
+DELETE FROM notes
+WHERE id = ?;

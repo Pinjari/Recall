@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">RecallFlow</string>
+    <string name="brand_monogram">RF</string>
+    <string name="foundation_label">LOCAL-FIRST · TEXT-FIRST</string>
+    <string name="welcome_heading">A quiet home for your thoughts.</string>
+    <string name="welcome_body">A simple foundation for keeping written notes close. Your notebook lives in a local database on this device.</string>
+    <string name="notebook_heading">Your local notebook</string>
+    <string name="storage_opening">Opening local storage…</string>
+    <string name="storage_unavailable">Local storage is unavailable.</string>
+    <string name="notebook_body">Plain text at the center. A shared Kotlin foundation connects this screen to platform-local storage.</string>
+    <string name="scope_heading">A focused beginning</string>
+    <string name="scope_body">This build establishes the local-first, text-first foundation. Semantic inference is explicitly not included.</string>
+    <string name="platform_footer">Android + Desktop · One shared foundation</string>
+    <plurals name="notes_saved">
+        <item quantity="one">%1$d note stored locally</item>
+        <item quantity="other">%1$d notes stored locally</item>
+    </plurals>
+</resources>
