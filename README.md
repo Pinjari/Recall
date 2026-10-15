@@ -1,9 +1,10 @@
 # RecallFlow
 
-RecallFlow is a local-first personal knowledge app. Milestone A provides the
-Kotlin Multiplatform + Compose Multiplatform foundation, local SQLDelight note
-storage, and a shared Android/desktop shell. EmbeddingGemma 2 inference is not
-included yet.
+RecallFlow is a local-first personal knowledge app. Milestones B/C provide a
+shared Android/desktop notes library backed by local SQLDelight storage, with
+create, edit, delete and deterministic case-insensitive keyword search. Search
+is lexical rather than semantic: it does not require a network or an AI model.
+EmbeddingGemma 2 inference is not included.
 
 ## Scope and support status
 

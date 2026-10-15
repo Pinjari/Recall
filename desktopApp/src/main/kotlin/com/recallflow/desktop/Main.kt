@@ -45,7 +45,7 @@ fun main(args: Array<String>) {
         val driver = DesktopDatabaseDriverFactory(dataDirectory.resolve("recallflow.db").toString())
             .createDriver()
         try {
-            val noteCount = SqlDelightNoteRepository(driver).listAll().size
+            val repository = SqlDelightNoteRepository(driver)
             val frameRendered = AtomicBoolean(false)
 
             application(exitProcessOnExit = false) {
@@ -65,7 +65,7 @@ fun main(args: Array<String>) {
                     } else {
                         Modifier
                     }
-                    RecallFlowScreen(modifier = frameModifier, noteCount = noteCount)
+                    RecallFlowScreen(repository = repository, modifier = frameModifier)
                 }
             }
 
