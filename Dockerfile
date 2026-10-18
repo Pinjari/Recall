@@ -5,6 +5,11 @@ WORKDIR /workspace
 
 COPY gradlew gradlew.bat gradle.properties settings.gradle.kts build.gradle.kts ./
 COPY gradle ./gradle
+COPY settings-gradle.lockfile ./settings-gradle.lockfile
+COPY shared/gradle.lockfile shared/gradle.lockfile
+COPY composeApp/gradle.lockfile composeApp/gradle.lockfile
+COPY androidApp/gradle.lockfile androidApp/gradle.lockfile
+COPY desktopApp/gradle.lockfile desktopApp/gradle.lockfile
 COPY shared/build.gradle.kts shared/build.gradle.kts
 COPY composeApp/build.gradle.kts composeApp/build.gradle.kts
 COPY androidApp/build.gradle.kts androidApp/build.gradle.kts
@@ -18,10 +23,16 @@ FROM eclipse-temurin:17.0.14_7-jdk-jammy AS offline-test
 
 WORKDIR /workspace
 
+RUN apt-get update \
+    && apt-get install --no-install-recommends --yes make \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY --from=dependency-preparation /root/.gradle /root/.gradle
 COPY . .
 
-RUN chmod +x gradlew \
-    && ./gradlew :shared:jvmTest :desktopApp:test --offline --no-daemon --console=plain
+ENV GRADLE_TEST_ARGS=--offline
 
-CMD ["./gradlew", ":shared:jvmTest", ":desktopApp:test", "--offline", "--no-daemon", "--console=plain"]
+RUN chmod +x gradlew \
+    && make test
+
+CMD ["make", "test"]

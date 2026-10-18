@@ -116,13 +116,16 @@ Docker is used to prepare the Gradle distribution/dependency cache and then run
 the same test workload in offline mode:
 
 ```bash
-docker build --tag recallflow-milestone-a .
-docker run --rm recallflow-milestone-a
+docker build --progress=plain --tag recallflow-milestone-a . \
+  && docker run --rm --network none recallflow-milestone-a make test
 ```
 
-The Dockerfile's first stage resolves pinned dependencies. Its final stage runs
-the tests with `--offline`; no network is required by that test invocation.
-Docker cannot prove native Windows/macOS packaging or Android device behavior.
+The Dockerfile's first stage resolves the pinned Gradle distribution and
+dependency graph with network access. Its final stage installs only `make`,
+copies that cache, sets `GRADLE_TEST_ARGS=--offline`, and runs the canonical
+`make test` command. The documented `--network none` run therefore verifies the
+same test command with networking disabled. Docker cannot prove native
+Windows/macOS packaging or Android device behavior.
 
 ## Reproducibility rules
 

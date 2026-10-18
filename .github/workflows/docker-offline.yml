@@ -1,0 +1,26 @@
+name: Docker offline tests
+
+on:
+  push:
+    branches:
+      - main
+      - 'buildathon/**'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  docker-offline-test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Build the test image
+        run: docker build --progress=plain --tag recallflow-milestone-a .
+
+      - name: Run make test without network access
+        run: docker run --rm --network none recallflow-milestone-a make test
