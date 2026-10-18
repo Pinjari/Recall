@@ -1,7 +1,9 @@
 .PHONY: test build run-desktop android-debug clean
 
+GRADLE_TEST_ARGS ?=
+
 test:
-	./gradlew :shared:jvmTest :desktopApp:test --no-daemon --console=plain
+	./gradlew :shared:jvmTest :desktopApp:test $(GRADLE_TEST_ARGS) --no-daemon --console=plain
 
 build:
 	./gradlew :androidApp:assembleDebug :desktopApp:jar --no-daemon --console=plain

@@ -7,6 +7,27 @@ plugins {
     alias(libs.plugins.kotlin.compose.compiler)
 }
 
+val desktopLockPlatform = when {
+    System.getProperty("os.name").contains("mac", ignoreCase = true) &&
+        System.getProperty("os.arch").lowercase() in setOf("aarch64", "arm64") -> "macos-arm64"
+
+    System.getProperty("os.name").contains("linux", ignoreCase = true) &&
+        System.getProperty("os.arch").lowercase() in setOf("aarch64", "arm64") -> "linux-arm64"
+
+    System.getProperty("os.name").contains("linux", ignoreCase = true) -> "linux-x64"
+
+    else -> error(
+        "No committed desktop dependency lock exists for " +
+            "${System.getProperty("os.name")} / ${System.getProperty("os.arch")}.",
+    )
+}
+require(desktopLockPlatform in setOf("macos-arm64", "linux-x64")) {
+    "No committed desktop dependency lock exists for $desktopLockPlatform."
+}
+dependencyLocking {
+    lockFile = file("gradle.lockfile.$desktopLockPlatform")
+}
+
 kotlin {
     jvmToolchain(17)
     compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
