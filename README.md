@@ -30,8 +30,10 @@ Windows, and a macOS artifact on macOS.
 - Android compile SDK `37`
 
 The runtime pin is recorded in `.java-version`. Dependency versions are recorded
-in `gradle/libs.versions.toml`; Gradle dependency lockfiles are committed under
-the individual module `gradle/` directories.
+in `gradle/libs.versions.toml`. Lockfiles for `shared`, `composeApp`, and
+`androidApp` are committed as module-level `gradle.lockfile` files; the desktop
+module uses `desktopApp/gradle.lockfile.macos-arm64` and
+`desktopApp/gradle.lockfile.linux-x64` to preserve platform-specific artifacts.
 
 ## Project layout
 
