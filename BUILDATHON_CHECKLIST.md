@@ -8,10 +8,13 @@ check passed. `PARTIALLY VERIFIED` means local evidence exists but an external
 fact still needs confirmation. `NOT VERIFIED` means the check was not run or
 cannot be established from this repository.
 
-This publication restores the documentation from `9c44d16` onto the verified
-base `75f2908`, then corrects the license and environment-example requirement.
-Historical test or audit claims are not treated as fresh verification. The
-publication report records the actual local test result separately.
+The Docker and documentation pull requests were merged into `main` on 18 Oct
+2026. The default branch includes the platform-specific desktop dependency
+locks, Docker offline workflow, Apache-2.0 license, environment example and
+this checklist. The clean-Linux Docker build and offline test were verified by
+[GitHub Actions run #6](https://github.com/Pinjari/Recall/actions/runs/39151463030)
+on merged `main` commit `feba75d6`. Human participation/session provenance
+and native platform builds not run remain unverified.
 
 ## Mandatory rules and submission requirements
 
@@ -36,11 +39,11 @@ checks. They are separate from the entry rules above.
 
 | Check | Evidence | Status | Remaining action |
 |---|---|---|---|
-| Use git; commit after working steps | The verified base is `75f2908`; this documentation branch preserves it and excludes the unrelated game commits. | **PARTIALLY VERIFIED** | Commit the validated three-file change; do not treat this as proof of the complete development history. |
-| Dockerfile | `Dockerfile` has a dependency-preparation stage and an offline-test stage. | **PRESENT; EXECUTION NOT VERIFIED** | On a clean Linux machine, run `docker build --tag recallflow-milestone-a .` and `docker run --rm recallflow-milestone-a`. |
-| Clean Linux rebuild | The Docker base images are Linux JDK 17 images, but no Docker build was run in this review. | **NOT VERIFIED** | Verify the Docker build and test command on clean Linux; record the result outside the source tree or in the submission evidence. |
-| Offline tests | `Dockerfile` invokes Gradle with `--offline` in its final stage; `make test` is the canonical local test command. | **NOT VERIFIED** | Complete the Docker run with network access disabled and confirm the offline test stage succeeds. |
-| One test command | `Makefile` defines `make test`; this row verifies command availability, not a test execution. | **VERIFIED (command defined only)** | Run `make test` before publication and record the result in the publication report; separately verify the offline Linux/Docker run. |
+| Use git; commit after working steps | The public `main` history contains the Docker/reproducibility commits and separate documentation change. Comparing `main` to the verified original base shows only the intended Docker/lockfile and license/checklist/example changes. | **VERIFIED (published history scope)** | Continue making focused commits for subsequent work. |
+| Dockerfile | `Dockerfile` has an online dependency-preparation stage and an offline-test stage. GitHub Actions run #6 on merged `main` built the image successfully on `ubuntu-24.04`. | **VERIFIED (run #6)** | Re-run CI after Docker or dependency changes. |
+| Clean Linux rebuild | GitHub Actions run #6 ran on a clean `ubuntu-24.04` runner and built the Docker test image from the merged `main` commit. | **VERIFIED (run #6)** | Keep the workflow enabled and record subsequent failures honestly. |
+| Offline tests | In run #6, `Run make test without network access` passed after invoking the image with `docker run --network none ... make test`; the container sets Gradle to `--offline`. | **VERIFIED (run #6)** | Re-run the CI workflow after build or dependency changes. |
+| One test command | `Makefile` defines `make test`; run #6 successfully executed it in the Docker container with network access disabled. | **VERIFIED (run #6)** | Keep `make test` as the canonical test entry point. |
 | Dependency lockfiles | `settings-gradle.lockfile` and module lockfiles under `shared/`, `composeApp/`, `androidApp/` and `desktopApp/` are committed. | **VERIFIED** | Regenerate lockfiles only when dependencies intentionally change. |
 | Pinned toolchain | `.java-version` pins JDK `17.0.14`; `gradle/wrapper/gradle-wrapper.properties` pins the Gradle distribution; `gradle/libs.versions.toml` pins project dependency versions. | **VERIFIED** | Keep these pins and the wrapper in the public repository. |
 | **Add `.env.example` (explicit rebuild requirement)** | `.env.example` is present and contains comments stating that the local app currently requires no environment variables or secrets; it invents no configuration keys. | **VERIFIED (file/content only)** | Keep this file even while no secret configuration is required; if configuration is added, document names with fake values only. |
