@@ -9,7 +9,7 @@ COPY settings-gradle.lockfile ./settings-gradle.lockfile
 COPY shared/gradle.lockfile shared/gradle.lockfile
 COPY composeApp/gradle.lockfile composeApp/gradle.lockfile
 COPY androidApp/gradle.lockfile androidApp/gradle.lockfile
-COPY desktopApp/gradle.lockfile desktopApp/gradle.lockfile
+COPY desktopApp/gradle.lockfile.* desktopApp/
 COPY shared/build.gradle.kts shared/build.gradle.kts
 COPY composeApp/build.gradle.kts composeApp/build.gradle.kts
 COPY androidApp/build.gradle.kts androidApp/build.gradle.kts
